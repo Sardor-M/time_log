@@ -1,40 +1,52 @@
 (function (d) {
   "use strict";
-  let tableRowSize = 90,
+  var tableRowSize = 90,
     tableDataSize = 52,
     table = d.createElement("table"),
-    birhtdayInput = d.getElementById("birth-date"),
-    calendar = d.getElementById("calendar"),
-    submitBtn = d.getElementById("submit"),
+    birhtdayInput = d.getElementById("birthDate"),
+    calendar = d.getElementById("calendar-button"),
+    submitBtn = d.getElementById("submit-button"),
     weeksLivedSpan = d.getElementById("weeks-lived"),
-    weeksRemainingSpan = d.getElementById("weeks-remaining");
-  (tableContainer = d.getElementById("table-container")),
-    (resultContainer = d.getElementById("result")),
-    (popUp = d.getElementById("pop-up")),
-    (popUpTableContainer = d.getElementById("popup-table-container")),
-    (popUpWeeksLeft = d.getElementById("popup-weeks-left")),
-    (popUpYearsLeft = d.getElementById("popup-years-progress")),
-    (closeBtn = d.getElementById("exit")[0]);
+    weeksRemainingSpan = d.getElementById("weeks-remaining"),
+    tableContainer = d.getElementById("table-container"),
+    resultContainer = d.getElementById("result"),
+    popUp = d.getElementById("pop-up"),
+    popUpTableContainer = d.getElementById("popup-table-container"),
+    popUpWeeksLeft = d.getElementById("popup-weeks-left"),
+    popUpYearsLeft = d.getElementById("popup-years-progress");
+  // closeBtn = d.getElementById("exit")[0];
+
+  calendar.addEventListener("click", function () {
+    birhtdayInput.type = "date";
+    birhtdayInput.focus();
+  });
+
+  birhtdayInput.addEventListener("blur", function () {
+    birhtdayInput.type = "text";
+  });
+
+  submitBtn.addEventListener("click", handleCalendarChange);
 
   // function to handle the calendar date change
   function handleCalendarChange() {
     let birthday = new Date(birhtdayInput.value);
     if (isNaN(birthday)) {
       resultContainer.style.display = "none";
-      document.getElementById("result").style.display = "block";
+      document.getElementById("blog").style.display = "block";
     } else {
-      birthday.style.display = "block";
-      document.getElementById("result").style.display = "none";
+      calculateResult(birthday);
+      resultContainer.style.display = "block";
+      document.getElementById("blog").style.display = "none";
     }
   }
 
-  function calculateResult() {
+  function calculateResult(birthday) {
     let today = new Date();
     let weeksLived = Math.floor(
-      Math.abs(birhtdayInput - today) / (100 * 60 * 60 * 24 * 7)
+      Math.abs(birthday - today) / (1000 * 60 * 60 * 24 * 7)
     );
 
-    let weeksRemaining = tableRowCellWidth * tableRowCellHeight - weeksLived;
+    let weeksRemaining = tableRowSize * tableDataSize - weeksLived;
 
     weeksLivedSpan.textContent = weeksLived;
     weeksRemainingSpan.textContent = weeksRemaining;
@@ -46,7 +58,7 @@
         let tableData = d.createElement("td");
         let weekNum = i * tableDataSize + b;
         let weekYear = new Date(
-          birthday.getTime() + weekNum * 7 * 24 * 60 * 60 * 100
+          birthday.getTime() + weekNum * 7 * 24 * 60 * 60 * 1000
         ).getFullYear();
         tableData.setAttribute(
           "data-week",
@@ -59,7 +71,7 @@
           if (weekNum < 2 * 52) {
             tableData.classList.add("infant");
           } else if (weekNum < 13 * 52) {
-            tableData.classList.add("teenage");
+            tableData.classList.add("adult");
           }
         }
 
@@ -78,20 +90,10 @@
         //   showPopup(birthday, event.target.getAttribute("data-year"));
         // });
 
-        table.appendChild(tableData);
+        tableRow.appendChild(tableData);
       }
-      tableContainer.appendChild(table);
+      table.appendChild(tableRow);
     }
+    tableContainer.appendChild(table);
   }
-
-  calendar.addEventListener("click", function () {
-    birhtdayInput.type = "date";
-    birhtdayInput.focus();
-  });
-
-  birthday.addEventListener("blur", function () {
-    birhtdayInput.type = "text";
-  });
-
-  submitBtn.addEventListener("click", handleCalendarChange);
 })(document);
