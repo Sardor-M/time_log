@@ -14,15 +14,40 @@ header {
   padding: 20px;
 }
 h1 {
-  color: #fffdfd;
-  font-size: 24px;
+  color: transparent;
+  font-size: 33px;
   font-weight: bold;
   text-align: center;
   margin: 0;
+  position: relative;
+  overflow: hidden; /* spillover qilmaslik uchun */
 }
 h1 a {
-  color: #fff;
+  color: #8357eb;
   text-decoration: none;
+  display: inline-block; /* Ensuring the link is properly block-leveled for h1 anim */
+  position: relative;
+}
+
+h1 a::before {
+  background: hsl(45, 100%, 75%);
+  content: "";
+  inset: 0;
+  position: absolute;
+  transform: scaley(0);
+  transform-origin: right;
+  transition: transform 0.5s ease-in-out;
+  z-index: -1;
+}
+
+h1 a:hover::before {
+  transform: scaley(1);
+  transform-origin: left;
+}
+
+#info {
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 #container {
@@ -79,9 +104,9 @@ h1 a {
   transition: background-color 0.3s ease;
 }
 
-#result {
+/* #result {
   padding: 9px;
-}
+} */
 
 #table-container {
   display: flex;
@@ -107,18 +132,18 @@ td {
 td::before {
   content: "";
   position: absolute;
-  top: -1.5px;
-  left: -1.5px;
-  bottom: -0.9px;
-
-  border: 6px solid transparent;
-  border-radius: 10px;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border: 1.5px solid transparent;
+  border-radius: 4px;
   transition: border-color 0.2s ease;
   pointer-events: none;
 }
 
 td:hover::before {
-  border-color: #ff6565f0;
+  border-color: #fffffff0;
   transition-delay: 0.01s;
   /* margin: 0;
   padding: auto; */
@@ -126,7 +151,6 @@ td:hover::before {
 
 .past {
   background-color: #1b998b;
-  margin: auto;
 }
 
 .infant {
@@ -167,17 +191,20 @@ td:hover::before {
   background-color: rgb(0, 0, 0, 0.5);
   left: 0;
   top: 0;
+  /* right: 0; */
   width: 100%;
   height: 100%;
   overflow: auto;
   z-index: 1;
+  /* align-items: center; */
 }
 
 .popup-body {
   background-color: #353535;
   margin: 10% auto;
   padding: 20px;
-  border: 1px solid #888;
+  border: 1.4px solid #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0, 5);
   align-items: center;
   flex-direction: column;
   display: flex;
@@ -196,14 +223,14 @@ td:hover::before {
 }
 .popup-table td {
   width: calc((100% / 13));
-  height: 24px;
+  height: 20px;
   border: 1.5px solid #333;
   background-color: #1b998b;
   /* border-radius: 5px; */
 }
 
 .popup-table td.past {
-  background-color: #1b998b;
+  background-color: #70ff68;
   /* margin: auto; */
 }
 .popup-table td.current {
@@ -225,14 +252,14 @@ td:hover::before {
 }
 
 .popup-table td {
-  width: 30px;
-  height: 30px;
+  width: 20px;
+  height: 20px;
   border-radius: 5px;
-  background-color: #ffc8c8;
+  background-color: #1b998b;
 }
 
 .popup-table td.past {
-  background-color: #1b998b;
+  background-color: #70ff68;
   /* margin: auto; */
 }
 .popup-table td.current {
@@ -245,14 +272,14 @@ td:hover::before {
 
 .popup-total-weeks {
   margin-top: 20px;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: bold;
 }
 
 #popup-week-left {
-  font-size: 16px;
+  font-size: 20px;
   margin-top: 10px;
-  /* padding: 4px; */
+  padding: 4px;
 }
 
 #popup-year-percentage {
@@ -265,10 +292,34 @@ td:hover::before {
   color: #ce8147;
 }
 
+footer {
+  text-align: center;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 2.4px solid #4c3838;
+}
+
+.exit {
+  color: #bebebe;
+  position: absolute;
+  top: 7px;
+  right: 25px;
+  font-size: 25px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.exit:hover,
+.exit:focus {
+  color: #ffa7a7;
+  text-decoration: none;
+  cursor: pointer;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(-20px);
+    transform: translateY(-50px);
   }
   to {
     opacity: 2;
@@ -279,7 +330,7 @@ td:hover::before {
 @keyframes popupFadeIn {
   from {
     opacity: 0;
-    transform: translateY(-20px);
+    transform: translateY(-90px);
   }
   to {
     opacity: 1;

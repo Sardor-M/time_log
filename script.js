@@ -45,7 +45,7 @@
     } else {
       calculateResult(birthday);
       resultContainer.style.display = "block";
-      //   document.getElementById("blog").style.display = "none";
+      document.getElementById("blog").style.display = "none";
     }
   }
 
@@ -145,10 +145,10 @@
     }
     popUpTableContainer.appendChild(popupTable);
 
-    popUpYearsLeft.textContent = "Year in Progress: " + yearProgress + "%";
+    popUpYearsLeft.textContent = "Progress: " + yearProgress + "%";
     popUpYearsLeft.style.fontFamily = "Space Mono, monospace";
 
-    popUpWeeksLeft.textContent = "Weeks left: " + weeksUntilNextBirthday;
+    popUpWeeksLeft.textContent = "Weeks left:  " + weeksUntilNextBirthday;
     popUpWeeksLeft.style.fontSize = "16px";
 
     popUp.style.display = "block";
