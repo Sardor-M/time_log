@@ -145,10 +145,11 @@
     }
     popUpTableContainer.appendChild(popupTable);
 
-    popUpYearsLeft.textContent = "Progress: " + yearProgress + "%";
+    popUpYearsLeft.textContent = "Progress of Year: " + yearProgress + "%";
     popUpYearsLeft.style.fontFamily = "Space Mono, monospace";
 
-    popUpWeeksLeft.textContent = "Weeks left:  " + weeksUntilNextBirthday;
+    popUpWeeksLeft.textContent =
+      "Weeks left until BD:  " + weeksUntilNextBirthday;
     popUpWeeksLeft.style.fontSize = "16px";
 
     popUp.style.display = "block";
