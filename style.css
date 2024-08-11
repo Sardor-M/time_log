@@ -298,6 +298,10 @@ footer {
   padding-top: 20px;
   border-top: 2.4px solid #4c3838;
 }
+a {
+  color: #8357eb;
+  text-decoration: none;
+}
 
 .exit {
   color: #bebebe;
